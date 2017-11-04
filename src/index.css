@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.Square {
+  width: 33%;
+  height: 100px;
+  background: #eee;
+  border: 1px solid #888;
+  box-sizing: border-box;
+  vertical-align: top;
+}
