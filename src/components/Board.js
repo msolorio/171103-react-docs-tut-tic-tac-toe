@@ -7,33 +7,39 @@ export default class Board extends React.Component {
     super(props);
 
     this.state = {
-      squareVals: Array(9).fill(null)
+      squareVals: Array(9).fill(null),
+      xIsNext: true
     };
 
     this.handleSquareClick = this.handleSquareClick.bind(this);
   }
 
   handleSquareClick(index) {
-    console.log('in handleSquareClick', index);
-
+    if (this.state.squareVals[index] !== null) return;
     const newSquareVals = this.state.squareVals.slice();
-    newSquareVals[index] = 'X';
-    this.setState({squareVals: newSquareVals});
+    newSquareVals[index] = this.state.xIsNext ? 'X' : 'O';
+
+    this.setState((prevState) => ({
+        squareVals: newSquareVals,
+        xIsNext: !prevState.xIsNext
+    }));
   }
 
   renderSquare(val, index) {
+    const handleSquareClick = () => this.handleSquareClick(index);
 
     return (
       <Square value={val}
-        onSquareClick={this.handleSquareClick}
-        index={index}
-        key={index} />
+        onSquareClick={handleSquareClick}
+        key={index}
+      />
     );
   };
 
   render() {
     return (
       <div className="Board">
+        <h2>Next Player: {this.state.xIsNext ? 'X' : 'O'}</h2>
         <div className="boardRow">
           {
             this.state.squareVals.map((squareVal, index) => {
